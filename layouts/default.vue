@@ -7,7 +7,65 @@
       fixed
       app
     >
+      <v-list-item href="/">
+        <v-list-item-content>
+          <v-list-item-title class="text-h5 font-weight-bold">
+            <v-icon :x-large="!miniVariant">
+              mdi-account-group-outline
+            </v-icon> {{ title }}
+          </v-list-item-title>
+          <v-list-item-subtitle v-if="!miniVariant">
+            Please keep social distancing!
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider />
       <v-list>
+        <v-list-item
+          to="/asdf"
+        >
+          <v-list-item-icon>
+            <v-icon>mdi-file-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>계약가이드</v-list-item-title>
+        </v-list-item>
+        <v-list-group
+          no-action
+          prepend-icon="mdi-magnify"
+        >
+          <template #activator>
+            <v-list-item-title>파트너 조회</v-list-item-title>
+          </template>
+          <v-list-item
+            to="/partner/enterprise"
+          >
+            <v-list-item-title>사업체</v-list-item-title>
+          </v-list-item>
+          <v-list-item
+            to="/partner/person"
+          >
+            <v-list-item-title>개인</v-list-item-title>
+          </v-list-item>
+        </v-list-group>
+        <v-list-group
+          no-action
+          prepend-icon="mdi-video-outline"
+        >
+          <template #activator>
+            <v-list-item-title>완성물</v-list-item-title>
+          </template>
+          <v-list-item
+            to="/calendar"
+          >
+            <v-list-item-title>조회</v-list-item-title>
+          </v-list-item>
+          <v-list-item
+            to="/calendar2"
+          >
+            <v-list-item-title>등록</v-list-item-title>
+          </v-list-item>
+        </v-list-group>
+        <!--
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -22,42 +80,115 @@
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
+        -->
       </v-list>
-    </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <template #append>
+        <div class="pa-2">
+          <v-btn block>
+            Logout
+          </v-btn>
+        </div>
+      </template>
+
       <v-btn
-        icon
+        fab
+        small
+        :style="{position:'fixed', top: [miniVariant ? 30 : 60] + 'px', right: '-15px'}"
         @click.stop="miniVariant = !miniVariant"
       >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+    </v-navigation-drawer>
+    <v-app-bar
+      class="appbarBgColor appbarColor--text"
+      :clipped-left="clipped"
+      fixed
+      app
+    >
       <v-spacer />
+      <v-menu offset-y left>
+        <template #activator="{ on, attrs }">
+          <span
+            v-bind="attrs"
+            v-on="on"
+          >
+            Menu <v-icon dark>mdi-chevron-down</v-icon>
+          </span>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in items"
+            :key="index"
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <!--
+      <v-col cols="3" class="ml-n12">
+        <v-autocomplete
+          label="메뉴 이름을 검색해 보세요"
+          class="mt-6"
+          prepend-inner-icon="mdi-magnify"
+        />
+      </v-col>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      -->
+      <v-avatar
+        class="ml-3 mr-2"
+        color="primary"
+        size="40"
+      >
+        Yun
+      </v-avatar>
+      <span>
+        Hi, <span class="font-weight-bold">Hose Yun</span>
+      </span>
+      <!--
       <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >
         <v-icon>mdi-menu</v-icon>
       </v-btn>
+      -->
+      <v-menu
+        offset-x
+        left
+        :close-on-content-click="false"
+      >
+        <template #activator="{ on, attrs }">
+          <v-btn
+            fab
+            small
+            absolute
+            bottom
+            right
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-cog</v-icon>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item>
+            <v-list-item-title>
+              <v-switch
+                v-model="$vuetify.theme.dark"
+                label="Dark Mode"
+              />
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
-    <v-main>
+    <v-main class="bgcolor">
+      <v-container>
+        <v-card>
+          <v-card-title>외주용역관리</v-card-title>
+          <v-card-text>Home</v-card-text>
+        </v-card>
+      </v-container>
       <v-container>
         <Nuxt />
       </v-container>
@@ -80,11 +211,30 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer
-      :absolute="!fixed"
       app
+      :absolute="true"
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      :vertical="true"
+      :centered="true"
+    >
+      {{ text }}
+
+      <template #action="{ attrs }">
+        <v-btn
+          color="blue"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          닫기
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -94,7 +244,6 @@ export default {
     return {
       clipped: false,
       drawer: false,
-      fixed: false,
       items: [
         {
           icon: 'mdi-apps',
@@ -103,15 +252,58 @@ export default {
         },
         {
           icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: '경비 신청',
+          to: '/expense'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: '경비 신청(Stepper,Vertical)',
+          to: '/expense-stepper-v'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: '경비 신청(Stepper,Horizontal)',
+          to: '/expense-stepper'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: '예약 시스템',
+          to: '/calendar'
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: '예약 시스템2',
+          to: '/calendar2'
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: '외주용역관리',
+      snackbar: false,
+      text: 'My timeout is set to 2000.',
+      timeout: 2000
     }
+  },
+  created () {
+    this.$nuxt.$on('onSnackBar', (text, timeout) => {
+      this.text = text
+      this.snackbar = true
+      if (!timeout) {
+        this.timeout = 0
+      }
+    })
   }
 }
 </script>
+<style>
+.v-list-item__icon.v-list-group__header__prepend-icon, .v-list-item__icon {
+  margin-right: 10px !important;
+}
+.v-application--is-ltr .v-list-group--no-action > .v-list-group__items > .v-list-item {
+  padding-left: 50px !important;
+}
+.v-text-field__details {
+  display: none !important;
+}
+</style>
