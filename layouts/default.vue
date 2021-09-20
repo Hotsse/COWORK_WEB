@@ -22,7 +22,7 @@
       <v-divider />
       <v-list>
         <v-list-item
-          to="/asdf"
+          to="/contract/guide"
         >
           <v-list-item-icon>
             <v-icon>mdi-file-outline</v-icon>
@@ -55,7 +55,7 @@
             <v-list-item-title>완성물</v-list-item-title>
           </template>
           <v-list-item
-            to="/calendar"
+            to="/product/list"
           >
             <v-list-item-title>조회</v-list-item-title>
           </v-list-item>
