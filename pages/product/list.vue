@@ -7,7 +7,18 @@
             카테고리
           </v-col>
           <v-col cols="5">
-            체크박스 목록
+            <v-row>
+              <v-col
+                v-for="(category, idx) in categories"
+                :key="idx + category.name"
+                cols="3"
+              >
+                <v-checkbox
+                  v-model="category.value"
+                  :label="category.name"
+                />
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
         <v-row>
@@ -144,6 +155,23 @@ export default {
     products: [
       { category: 'BGM', projectNm: '테스트게임1', workNm: '테스트게임1 시즌4 에피소드4 레이드 전투 BGM', contPay: '1,980,000 원', regDtt: '2021-06-01 12:14' },
       { category: 'Effect', projectNm: '테스트게임2', workNm: '테스트게임2 이펙트', contPay: '2,400,000 원', regDtt: '2021-03-17 11:15' }
+    ],
+    categories: [
+      { name: '일러스트', value: true },
+      { name: '원화', value: true },
+      { name: '도트', value: true },
+      { name: '웹프로모션', value: true },
+      { name: '모델링', value: true },
+      { name: '키애니메이션', value: true },
+      { name: '모션캡처', value: true },
+      { name: '애니메이션', value: true },
+      { name: '실사', value: true },
+      { name: '모션그래픽', value: true },
+      { name: '성우녹음', value: true },
+      { name: 'BGM', value: true },
+      { name: 'Effect', value: true },
+      { name: '번역', value: true },
+      { name: '웹툰', value: true }
     ]
   }),
   methods: {
